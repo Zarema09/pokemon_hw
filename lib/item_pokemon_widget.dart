@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pokemon_04/menu_screen.dart';
-
 import 'model.dart';
 
 class ItemPokemonWidget extends StatelessWidget {
