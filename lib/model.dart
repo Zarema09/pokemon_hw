@@ -1,27 +1,20 @@
-import 'dart:ui';
+import 'package:equatable/equatable.dart';
 
-class PokemonData {
-  final String name;
+class Model extends Equatable {
+  const model(this.fullName,this hogwartsHouse,this image);
+
+  final String fullName;
+  final String hogwartsHouse;
   final String image;
-  final Color color;
-  final String number;
-  final String type;
-  final double weight;
-  final double height;
-  final List<String> moves;
-  final String description;
-  final Map<String, int> baseStats;
 
-  PokemonData({
-    required this.name,
-    required this.image,
-    required this.color,
-    required this.number,
-    required this.type,
-    required this.weight,
-    required this.height,
-    required this.moves,
-    required this.description,
-    required this.baseStats,
-  });
+  @override
+  List<Object> get props => [fullName,hogwartsHouse,image];
+
+  factory Model.fromJson(Map<String,dynamic>json){
+  return Model(
+  json['fullName'],
+  json['hogwartsHouse'],
+  json['image']);
+  }
+
 }
