@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'details_screen.dart';
 import 'bloc/main_bloc.dart';
+import 'model.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,10 +12,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final MainBloc bloc = MainBloc()..add(GetHarryDataEvent());
+
   @override
   Widget build(BuildContext context) {
-    final bloc = MainBloc()..add(GetHarryDataEvent());
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -32,30 +32,38 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: const EdgeInsets.symmetric(vertical: 40),
                         child: Divider(
                           height: 10,
-                          thickness: 20,
+                          thickness: 2,
                           color: Colors.green,
                         ),
                       ),
                       itemBuilder: (context, index) {
                         final item = responseList[index];
-                        return Column(
-                          children: [
-                            Text(
-                              item.fullName,
-                              style: TextStyle(fontSize: 40),
-                            ),
-                            Text(
-                              item.hogwartsHouse,
-                              style: TextStyle(fontSize: 40),
-                            ),
-                            Image.network(item.image),
-                          ],
+                        return ListTile(
+                          title: Text(
+                            item.fullName,
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            item.hogwartsHouse,
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                          leading: Image.network(item.image, width: 50, height: 50),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailsScreen(character: item),
+                              ),
+                            );
+                          },
                         );
                       },
                       itemCount: responseList.length,
                     );
-                  } else {
+                  } else if (state is DataLoading) {
                     return Center(child: CircularProgressIndicator());
+                  } else {
+                    return Center(child: Text("Ошибка загрузки данных"));
                   }
                 },
               ),

@@ -2,12 +2,12 @@ part of 'main_bloc.dart';
 
 sealed class MainState {}
 
-final class MainInitial extends MainEvent{}
+class MainInitial extends MainState {}
 
-final class DataLoading extends MainEvent{}
+class DataLoading extends MainState {}
 
-final class SuccessLoaded extends MainEvent{
-  final List <Model> data;
+class SuccessLoaded extends MainState {
+  final List<Model> list;
 
-  SuccessLoaded(this.data);
+  SuccessLoaded(this.list);
 }
