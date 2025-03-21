@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'api_service.dart';
+import 'cache_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheService.init();
   runApp(MyApp());
 }
 
